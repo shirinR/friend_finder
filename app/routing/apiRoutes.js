@@ -7,7 +7,6 @@ module.exports = function(app){
 
   app.post("/api/friends", function(req,res){
     friends.push(req.body);
-    res.json(true);
     var diff = [];
     var sum = 0;
     var match=[];
@@ -40,15 +39,7 @@ module.exports = function(app){
 
     var match_index = match.indexOf(Math.min.apply(Math, match));
     console.log(friends[match_index].name + ' is your best match');
-
-    // show the modal with image
-    // var modalDiv = $("<div class='modal fade'>");
-    // var modalDialog = modalDiv.append('<div class="modal-dialog" role="document">');
-    // var modalContent = modalDiv.append('<div class="modal-content">');
-    // var modalHeader = modalDiv.append('<div class="modal-header">');
-    // var modalTitle = modalDiv.append('<h5 class="modal-title">Best Match</h5>');
-    // var modalClose = modalDiv.append('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>');
-    // var modalBody = modalDiv.append('<div class="modal-body"><h2 id="matchName">'+ name +'<img id="matchImg" src="'+ imageLink +'"></h2>');
-    // var modalFooter = modalDiv.append('<div class="modal-footer"> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div>');
+    console.log(friends[match_index].photo);
+    res.send(friends[match_index]);
   });
 };

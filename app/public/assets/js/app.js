@@ -1,12 +1,3 @@
-function addModal(){
-  jQuery.noConflict();
-  console.log('here');
-  jQuery('#myModal').modal('show');
-  // jQuery('.modal-title').text('Best Match');
-  // $('.modal-body').html(`<p><i>loading, please wait...</i></p>`);
-
-}
-
 $('#submit').on('click', function(event){
   event.preventDefault();
 
@@ -21,7 +12,6 @@ $('#submit').on('click', function(event){
   if(name=="" || imageLink=="" || q1=="" || q2=="" || q3=="" || q4=="" || q5==""){
     alert("friend-finder-shirinr.herockuapp.com says:\nplease fillout all fields before submitting");
   }else{
-    // save inputs to the db
     var newData = {
       name: name,
       photo: imageLink,
@@ -29,15 +19,19 @@ $('#submit').on('click', function(event){
     };
 
     $.post("/api/friends", newData).done(function(data){
-      addModal();
+      if(data){
+        $('.modal-body p').html('<h2 id="matchName">'+ data.name + '</h2><img id="matchImg" src="' + data.photo + '" alt="Your Best Match photo">');
+        $('#submit').attr('data-toggle', "modal");
+        $('#submit').attr('data-target', "#myModal");
+
+        name = $('#name').val("");
+        imageLink = $('#photo').val("");
+        q1 = $(".question1").val("");
+        q2 = $(".question2").val("");
+        q3 = $(".question3").val("");
+        q4 = $(".question4").val("");
+        q5 = $(".question5").val("");
+      }
     });
   }
-
-  name = $('#name').val("");
-  imageLink = $('#photo').val("");
-  q1 = $(".question1").val("");
-  q2 = $(".question2").val("");
-  q3 = $(".question3").val("");
-  q4 = $(".question4").val("");
-  q5 = $(".question5").val("");
 });
